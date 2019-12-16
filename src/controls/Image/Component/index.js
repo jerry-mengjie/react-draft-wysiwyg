@@ -90,6 +90,10 @@ class LayoutComponent extends Component {
     const { imgSrc, alt } = this.state;
     let { height, width } = this.state;
     const { onChange } = this.props;
+    if (!/^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$/.test(alt)) {
+      alert('链接前面必须是http或https');
+      return;
+    }
     if (!isNaN(height)) {
       height += 'px';
     }
@@ -259,14 +263,15 @@ class LayoutComponent extends Component {
         }
         {altConf.present &&
         <div className="rdw-image-modal-size">
-          <span className="rdw-image-modal-alt-lbl">Alt Text</span>
+          <span className="rdw-image-modal-alt-lbl">链接:</span>
           <input
             onChange={this.updateValue}
             onBlur={this.updateValue}
             value={alt}
             name="alt"
             className="rdw-image-modal-alt-input"
-            placeholder="alt"
+            placeholder="请输入图片跳转链接"
+            style={{ width: '78%' }}
           />
           <span className="rdw-image-mandatory-sign">{altConf.mandatory && '*'}</span>
         </div>}
